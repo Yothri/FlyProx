@@ -4,7 +4,9 @@ using FlyProxCore.Network.Packet;
 using FlyProxCore.Network.Processor;
 using NLog;
 using System;
+using System.IO;
 using System.Net.Sockets;
+using System.Text;
 
 namespace FlyProxCore.Network.Cluster
 {
@@ -35,11 +37,33 @@ namespace FlyProxCore.Network.Cluster
             if (type == 0)
                 SessionId = BitConverter.ToUInt32(buffer, 4);
             
+            if(type == 0x000000f2)
+            {
+                PatchCacheAddr(ref buffer);
+            }
+
             using (var p = new FlyServerPacket())
             {
                 p.Write(buffer, 0, buffer.Length);
 
                 FlyProxContext.Instance.ClusterProxyServer.SendToAll(p);
+            }
+        }
+
+        protected virtual void PatchCacheAddr(ref byte[] buffer)
+        {
+            using (var writeStream = new MemoryStream())
+            using (var readStream = new MemoryStream(buffer))
+            using (var reader = new BinaryReader(readStream))
+            using (var writer = new BinaryWriter(writeStream))
+            {
+                writer.Write(reader.ReadInt32()); // PacketType
+
+                var bHost = Encoding.ASCII.GetBytes(FlyProxConfig.Instance.ProxyServerHost);
+                writer.Write(bHost.Length);
+                writer.Write(bHost, 0, bHost.Length);
+
+                buffer = writeStream.ToArray();
             }
         }
 

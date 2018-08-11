@@ -8,7 +8,6 @@ namespace FlyProxCore.Network.Packet
     public class FlyClientLoginPacket : FlyPacket
     {
         public uint SessionId { get; }
-
         public override byte[] Buffer => BuildBuffer();
 
         public FlyClientLoginPacket(uint sessionId)
@@ -38,7 +37,7 @@ namespace FlyProxCore.Network.Packet
             var bLen = BitConverter.GetBytes(len);
             var lenHash = ~(Crc32.ComputeChecksum(bLen) ^ SessionId);
 
-            var data = GetBuffer().Skip(13).ToArray();
+            var data = base.Buffer.Skip(13).ToArray();
             var dataHash = ~(Crc32.ComputeChecksum(data) ^ SessionId);
 
             Seek(1, SeekOrigin.Begin);
