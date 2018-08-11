@@ -28,10 +28,8 @@ namespace FlyProxCore.Cryptography
             }
         }
 
-        public static uint ComputeChecksum(byte[] bytes)
+        public static uint ComputeChecksum(byte[] bytes, uint crc = 0xffffffff)
         {
-            uint crc = 0xffffffff;
-
             for (int i = 0; i < bytes.Length; ++i)
             {
                 var index = (byte)(((crc) & 0xff) ^ bytes[i]);

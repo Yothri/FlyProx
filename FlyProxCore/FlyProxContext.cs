@@ -16,6 +16,7 @@ namespace FlyProxCore
 
         public FlyProxContext()
         {
+            FlyProxConfig.Instance.Load();
             Instance = this;
         }
 
