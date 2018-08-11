@@ -38,9 +38,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ether.Network, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ether.Network.3.0.0\lib\net46\Ether.Network.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -112,6 +109,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ether.Network\src\Ether.Network\Ether.Network.csproj">
+      <Project>{e91d5599-ffeb-4b85-afc6-e674d4eb9cf1}</Project>
+      <Name>Ether.Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FlyProxCore\FlyProxCore.csproj">
       <Project>{7ff7236c-dcf4-4a8d-a769-24889c4e13f9}</Project>
       <Name>FlyProxCore</Name>

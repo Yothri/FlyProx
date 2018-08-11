@@ -4,6 +4,7 @@ using FlyProxCore.Network.Packet;
 using FlyProxCore.Network.Processor;
 using NLog;
 using System;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace FlyProxCore.Network.World
@@ -46,6 +47,9 @@ namespace FlyProxCore.Network.World
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from WorldServer.");
+            FlyProxContext.Instance.WorldProxyServer.Clients
+                .ToList()
+                .ForEach(x => FlyProxContext.Instance.WorldProxyServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)

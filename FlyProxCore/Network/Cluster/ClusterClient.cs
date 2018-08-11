@@ -5,6 +5,7 @@ using FlyProxCore.Network.Processor;
 using NLog;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
@@ -70,6 +71,9 @@ namespace FlyProxCore.Network.Cluster
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from ClusterServer.");
+            FlyProxContext.Instance.ClusterProxyServer.Clients
+                .ToList()
+                .ForEach(x => FlyProxContext.Instance.ClusterProxyServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)

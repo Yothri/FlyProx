@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Net.Sockets;
-using System.Text;
-using Ether.Network.Packets;
+﻿using Ether.Network.Packets;
 using FlyProxCore.Config;
 using FlyProxCore.Network.Packet;
 using FlyProxCore.Network.Processor;
-using FlyProxCore.Util.Ext;
 using NLog;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
 
 namespace FlyProxCore.Network.Login
 {
@@ -114,6 +114,9 @@ namespace FlyProxCore.Network.Login
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from LoginServer.");
+            FlyProxContext.Instance.LoginProxyServer.Clients
+                .ToList()
+                .ForEach(x => FlyProxContext.Instance.LoginProxyServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)
