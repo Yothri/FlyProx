@@ -1,4 +1,5 @@
-﻿using FlyProxCore.Cryptography;
+﻿using FlyProxCore.Config;
+using FlyProxCore.Cryptography;
 using System;
 using System.IO;
 using System.Linq;
@@ -36,10 +37,10 @@ namespace FlyProxCore.Network.Packet
 
             var len = (uint)(Length - 13);
             var bLen = BitConverter.GetBytes(len);
-            var lenHash = ~(Crc32.ComputeChecksum(bLen) ^ SessionId);
+            var lenHash = ~(Crc32.ComputeChecksum(bLen, FlyProxConfig.Instance.CRCKey) ^ SessionId);
 
             var data = base.Buffer.Skip(13).ToArray();
-            var dataHash = ~(Crc32.ComputeChecksum(data) ^ SessionId);
+            var dataHash = ~(Crc32.ComputeChecksum(data, FlyProxConfig.Instance.CRCKey) ^ SessionId);
 
             Seek(1, SeekOrigin.Begin);
             Write(lenHash);
