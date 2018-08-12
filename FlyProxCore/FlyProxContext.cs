@@ -6,10 +6,11 @@ using System;
 
 namespace FlyProxCore
 {
-    public class FlyProxContext : IDisposable
+    public class FlyProxContext : IFlyProxContext
     {
         public static FlyProxContext Instance;
 
+        public virtual string Name => "Default";
         public virtual LoginServer LoginProxyServer { get; } = new LoginServer();
         public virtual ClusterServer ClusterProxyServer { get; } = new ClusterServer();
         public virtual WorldServer WorldProxyServer { get; } = new WorldServer();

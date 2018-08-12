@@ -1,5 +1,4 @@
 ﻿using FlyProx.MVVM;
-using FlyProx.Utils;
 using FlyProxCore;
 using System;
 using System.Collections.ObjectModel;
