@@ -2,7 +2,6 @@
 using FlyProxCore.Network.Cluster;
 using FlyProxCore.Network.Login;
 using FlyProxCore.Network.World;
-using System;
 
 namespace FlyProxCore
 {
@@ -11,9 +10,13 @@ namespace FlyProxCore
         public static FlyProxContext Instance;
 
         public virtual string Name => "Default";
-        public virtual LoginServer LoginProxyServer { get; } = new LoginServer();
-        public virtual ClusterServer ClusterProxyServer { get; } = new ClusterServer();
-        public virtual WorldServer WorldProxyServer { get; } = new WorldServer();
+        public virtual LoginServer ProxyLoginServer { get; } = new LoginServer();
+        public virtual ClusterServer ProxyClusterServer { get; } = new ClusterServer();
+        public virtual WorldServer ProxyWorldServer { get; } = new WorldServer();
+
+        public virtual LoginClient ProxyLoginClient { get; } = new LoginClient();
+        public virtual ClusterClient ProxyClusterClient { get; } = new ClusterClient();
+        public virtual WorldClient ProxyWorldClient { get; } = new WorldClient();
 
         public FlyProxContext()
         {
@@ -23,23 +26,24 @@ namespace FlyProxCore
 
         public void Initialize()
         {
-            LoginProxyServer.Start();
-            ClusterProxyServer.Start();
-            WorldProxyServer.Start();
+            ProxyLoginServer.Start();
+            ProxyClusterServer.Start();
+            ProxyWorldServer.Start();
         }
 
         public void Uninitialize()
         {
-            LoginProxyServer.Stop();
-            ClusterProxyServer.Stop();
-            WorldProxyServer.Stop();
+            ProxyLoginServer.Stop();
+            ProxyClusterServer.Stop();
+            ProxyWorldServer.Stop();
+
+            ProxyLoginClient.Disconnect();
+            ProxyClusterClient.Disconnect();
+            ProxyWorldClient.Disconnect();
         }
 
         public void Dispose()
         {
-            LoginProxyServer.Dispose();
-            ClusterProxyServer.Dispose();
-            WorldProxyServer.Dispose();
             FlyProxConfig.Instance.Dispose();
         }
     }

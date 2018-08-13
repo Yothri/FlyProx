@@ -28,13 +28,13 @@ namespace FlyProxCore.Network.World
         protected override void OnClientConnected(WorldUser connection)
         {
             Log.Debug("Game connected to WorldProxyServer!");
-            connection.Client.Connect();
+            FlyProxContext.Instance.ProxyWorldClient.Connect();
         }
 
         protected override void OnClientDisconnected(WorldUser connection)
         {
             Log.Debug("Game disconnected from WorldProxyServer!");
-            connection.Client.Disconnect();
+            FlyProxContext.Instance.ProxyWorldClient.Disconnect();
         }
 
         protected override void OnError(Exception exception)

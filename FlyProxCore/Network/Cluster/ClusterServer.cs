@@ -28,13 +28,13 @@ namespace FlyProxCore.Network.Cluster
         protected override void OnClientConnected(ClusterUser connection)
         {
             Log.Debug("Game connected to ClusterProxyServer!");
-            connection.Client.Connect();
+            FlyProxContext.Instance.ProxyClusterClient.Connect();
         }
 
         protected override void OnClientDisconnected(ClusterUser connection)
         {
             Log.Debug("Game disconnected from ClusterProxyServer!");
-            connection.Client.Disconnect();
+            FlyProxContext.Instance.ProxyClusterClient.Disconnect();
         }
 
         protected override void OnError(Exception exception)

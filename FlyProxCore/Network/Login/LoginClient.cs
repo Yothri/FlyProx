@@ -47,7 +47,7 @@ namespace FlyProxCore.Network.Login
             {
                 p.Write(buffer, 0, buffer.Length);
 
-                FlyProxContext.Instance.LoginProxyServer.SendToAll(p);
+                FlyProxContext.Instance.ProxyLoginServer.SendToAll(p);
             }
         }
 
@@ -114,9 +114,9 @@ namespace FlyProxCore.Network.Login
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from LoginServer.");
-            FlyProxContext.Instance.LoginProxyServer.Clients
+            FlyProxContext.Instance.ProxyLoginServer.Clients
                 .ToList()
-                .ForEach(x => FlyProxContext.Instance.LoginProxyServer.DisconnectClient(x.Id));
+                .ForEach(x => FlyProxContext.Instance.ProxyLoginServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)

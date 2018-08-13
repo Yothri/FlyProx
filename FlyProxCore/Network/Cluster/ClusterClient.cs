@@ -47,7 +47,7 @@ namespace FlyProxCore.Network.Cluster
             {
                 p.Write(buffer, 0, buffer.Length);
 
-                FlyProxContext.Instance.ClusterProxyServer.SendToAll(p);
+                FlyProxContext.Instance.ProxyClusterServer.SendToAll(p);
             }
         }
 
@@ -71,9 +71,9 @@ namespace FlyProxCore.Network.Cluster
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from ClusterServer.");
-            FlyProxContext.Instance.ClusterProxyServer.Clients
+            FlyProxContext.Instance.ProxyClusterServer.Clients
                 .ToList()
-                .ForEach(x => FlyProxContext.Instance.ClusterProxyServer.DisconnectClient(x.Id));
+                .ForEach(x => FlyProxContext.Instance.ProxyClusterServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)

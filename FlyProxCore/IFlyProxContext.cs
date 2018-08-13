@@ -8,8 +8,13 @@ namespace FlyProxCore
     public interface IFlyProxContext : IDisposable
     {
         string Name { get; }
-        LoginServer LoginProxyServer { get; }
-        ClusterServer ClusterProxyServer { get; }
-        WorldServer WorldProxyServer { get; }
+        
+        LoginServer ProxyLoginServer { get; }
+        ClusterServer ProxyClusterServer { get; }
+        WorldServer ProxyWorldServer { get; }
+
+        LoginClient ProxyLoginClient { get; }
+        ClusterClient ProxyClusterClient { get; }
+        WorldClient ProxyWorldClient { get; }
     }
 }

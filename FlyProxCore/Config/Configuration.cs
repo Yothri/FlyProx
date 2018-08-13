@@ -17,12 +17,7 @@ namespace FlyProxCore.Config
         }
 
         public virtual string ConfigFile => "config.json";
-
-        public Configuration()
-        {
-            Load();
-        }
-
+        
         public virtual void Load()
         {
             if (!File.Exists(ConfigFile))

@@ -40,16 +40,16 @@ namespace FlyProxCore.Network.World
             {
                 p.Write(buffer, 0, buffer.Length);
 
-                FlyProxContext.Instance.WorldProxyServer.SendToAll(p);
+                FlyProxContext.Instance.ProxyWorldServer.SendToAll(p);
             }
         }
 
         protected override void OnDisconnected()
         {
             Log.Debug("Proxy disconnected from WorldServer.");
-            FlyProxContext.Instance.WorldProxyServer.Clients
+            FlyProxContext.Instance.ProxyWorldServer.Clients
                 .ToList()
-                .ForEach(x => FlyProxContext.Instance.WorldProxyServer.DisconnectClient(x.Id));
+                .ForEach(x => FlyProxContext.Instance.ProxyWorldServer.DisconnectClient(x.Id));
         }
 
         protected override void OnSocketError(SocketError socketError)

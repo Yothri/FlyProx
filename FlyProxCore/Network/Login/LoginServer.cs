@@ -28,13 +28,13 @@ namespace FlyProxCore.Network.Login
         protected override void OnClientConnected(LoginUser connection)
         {
             Log.Debug("Game connected to LoginProxyServer!");
-            connection.Client.Connect();
+            FlyProxContext.Instance.ProxyLoginClient.Connect();
         }
 
         protected override void OnClientDisconnected(LoginUser connection)
         {
             Log.Debug("Game disconnected from LoginProxyServer!");
-            connection.Client.Disconnect();
+            FlyProxContext.Instance.ProxyLoginClient.Disconnect();
         }
 
         protected override void OnError(Exception exception)
