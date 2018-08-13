@@ -11,7 +11,7 @@ namespace FlyProxCore.Network.Login
 
             var buffer = packet.ReadArray<byte>(packet.Size);
 
-            using (var p = new FlyClientLoginPacket(FlyProxContext.Instance.ProxyLoginClient.SessionId))
+            using (var p = new FlyClientPacket(FlyProxContext.Instance.ProxyLoginClient.SessionId, false))
             {
                 p.Write(buffer, 0, buffer.Length);
 

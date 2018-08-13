@@ -1,5 +1,7 @@
 ﻿using Ether.Network.Packets;
 using Ether.Network.Server;
+using FlyProxCore.Network.Packet;
+using FlyProxCore.Network.Processor;
 using NLog;
 
 namespace FlyProxCore.Network
@@ -9,6 +11,6 @@ namespace FlyProxCore.Network
     {
         protected virtual Logger Log => LogManager.GetCurrentClassLogger();
 
-        protected override IPacketProcessor PacketProcessor => null;
+        protected override IPacketProcessor PacketProcessor { get; } = new FlyClientPacketProcessor<FlyClientPacket>();
     }
 }

@@ -1,5 +1,4 @@
-﻿using FlyProxCore.Config;
-using FlyProxCore.Cryptography;
+﻿using FlyProxCore.Cryptography;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,19 +10,21 @@ namespace FlyProxCore.Network.Packet
         public uint SessionId { get; }
         public override byte[] Buffer => BuildBuffer();
 
-        public FlyClientPacket(uint sessionId)
-            : this()
+        public FlyClientPacket(uint sessionId, bool appendDPID = true)
+            : this(appendDPID)
         {
             SessionId = sessionId;
         }
 
-        protected FlyClientPacket()
+        protected FlyClientPacket(bool appendDPID)
         {
             Write(HeaderMark);
             Write(0);
             Write(0);
             Write(0);
-            Write(0xFFFFFFFF);
+
+            if(appendDPID)
+                Write(0xFFFFFFFF);
         }
 
         public FlyClientPacket(byte[] buffer)
@@ -37,10 +38,10 @@ namespace FlyProxCore.Network.Packet
 
             var len = (uint)(Length - 13);
             var bLen = BitConverter.GetBytes(len);
-            var lenHash = ~(Crc32.ComputeChecksum(bLen, FlyProxConfig.Instance.CRCKey) ^ SessionId);
+            var lenHash = ~(Crc32.ComputeChecksum(bLen) ^ SessionId);
 
             var data = base.Buffer.Skip(13).ToArray();
-            var dataHash = ~(Crc32.ComputeChecksum(data, FlyProxConfig.Instance.CRCKey) ^ SessionId);
+            var dataHash = ~(Crc32.ComputeChecksum(data) ^ SessionId);
 
             Seek(1, SeekOrigin.Begin);
             Write(lenHash);

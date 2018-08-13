@@ -1,7 +1,4 @@
-﻿using Ether.Network.Packets;
-using FlyProxCore.Config;
-using FlyProxCore.Network.Packet;
-using FlyProxCore.Network.Processor;
+﻿using FlyProxCore.Config;
 using NLog;
 using System;
 
@@ -10,9 +7,7 @@ namespace FlyProxCore.Network.Login
     public class LoginServer : FlyServer<LoginUser>
     {
         protected override Logger Log => LogManager.GetCurrentClassLogger();
-
-        protected override IPacketProcessor PacketProcessor { get; } = new FlyClientPacketProcessor<FlyClientLoginPacket>();
-
+        
         public LoginServer()
         {
             Configuration.Host = FlyProxConfig.Instance.ProxyServerHost;

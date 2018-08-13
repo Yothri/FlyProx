@@ -16,11 +16,7 @@
 
         public string WorldServerHost { get; set; }
         public int WorldServerPort { get; set; }
-
-        public char HeaderMark { get; set; }
-
-        public uint CRCKey { get; set; }
-
+        
         public FlyProxConfig()
         {
             ProxyServerHost = "127.0.0.1";
@@ -37,9 +33,6 @@
 
             WorldServerHost = "85.214.251.19";
             WorldServerPort = 5400;
-
-            HeaderMark = '^';
-            CRCKey = 0xffffffff;
         }
     }
 }

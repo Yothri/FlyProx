@@ -4,7 +4,6 @@ namespace FlyProxCore.Network.Packet
 {
     public class FlyServerPacket : FlyPacket
     {
-
         public override byte[] Buffer => BuildBuffer();
 
         public FlyServerPacket()
